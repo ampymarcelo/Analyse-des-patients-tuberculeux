@@ -79,22 +79,8 @@ tab PAT01,  gen(habit)
 
 * Refactorisé
 make_dummies DEM_09 PAT01 PAT05, stem(nivSco habit PriseTDOquot)
+
 ```
-
----
-
-## Bugs et incohérences corrigés
-
-| Fichier original | Problème | Correction |
-|---|---|---|
-| Ligne 44 | `lab val DEM02 TrancheAge` — mauvaise syntaxe (DEM02 au lieu de TrancheAge) | `label values TrancheAge lbl_tranche` |
-| Ligne 43 | `(35/44=4 "35-34ans")` — libellé erroné | Corrigé en `"35-44 ans"` |
-| Lignes 201, 226 | `gen mauvaisObs` recréée 3 fois sans `capture drop` → erreur à la 2e exécution | Centralisée dans `01_recodage.do` avec `capture drop` |
-| Ligne 256 | Modèle M3 sans `[iw=pond]` alors que M1, M2, M4, M5 l'ont | Pondération ajoutée (voir note dans module 06) |
-| Lignes 269+ | `logit` Tana Avaradrano après `esttab` sans `eststo` ni contexte clair | Déplacé dans `05_logistique.do` comme vérification de district |
-
----
-
 ## Structure des modèles (module 06)
 
 | Modèle | Variables incluses | Note |
@@ -108,9 +94,4 @@ make_dummies DEM_09 PAT01 PAT05, stem(nivSco habit PriseTDOquot)
 
 ---
 
-## Variables à compléter / vérifier
 
-- `PAT13` (moyen de locomotion et coût) : présente dans la liste théorique mais absente des régressions par district → à intégrer si significative au chi²
-- `SAN01`, `SOIN001`, `SOIN003` : idem
-- `DEM01` (distance habitation–centre) : incluse dans M4/M5 mais pas dans les analyses par district
-- Vérifier la codification exacte de `OBS02` (1 = mauvaise, 2 = bonne) avant de lancer `05_logistique.do`
